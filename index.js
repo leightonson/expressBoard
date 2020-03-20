@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
 const route = require('./routes');
+const sequelize = require('./models').sequelize;
+
+sequelize.sync();
+
 
 app.use(express.json());
 
