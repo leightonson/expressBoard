@@ -1,23 +1,22 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('user', {
-        name: {
+    return sequelize.define('board', {
+        id: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        title: {
             type: DataTypes.STRING(20),
-            allowNull: false,
-            unique: true,
+            allowNull: false
         },
-        age: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: false,
+        content: {
+            type: DataTypes.STRING(100),
+            allowNull: false
         },
-        married: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-        },
-        comment: {
-            type: DataTypes.STRING(500),
-            allowNull: true,
-        },
-        
+        imgUrl: {
+            type: DataTypes.STRING(100),
+            allowNull: true
+        }
     }, {
         timestamps: true,
     });

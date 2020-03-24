@@ -1,17 +1,22 @@
 const Sequelize = require("sequelize");
-// const config = require("../../config/config");
+const config = require("../config/config");
 // const board = require("./Board");
 
 const db = {};
 
-const sequelize = new Sequelize("test", "root", "0000", {
-    host : "localhost",
-    dialect : "mysql"
+const sequelize = new Sequelize(config.database, config.username, config.password, {
+    host : config.host,
+    dialect : config.dialect
 });
 
 const Board = require("./Board")(sequelize, Sequelize);
+const User = require("./User")(sequelize, Sequelize);
 
 db.Board = Board;
+db.User = User;
+
+User.hasMany(Board, {foreignKey: 'author',});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
