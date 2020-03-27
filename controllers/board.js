@@ -6,8 +6,8 @@ const writeOne = async (req, res, next) => {
         const content = req.body.content;
         const imgUrl = req.body.imgUrl;
         const author = req.findUserId;
-        const createBoard = await model.Board.create({title, content, imgUrl, author});
         // const {title:title, contents, password} = req.body;
+        const createBoard = await model.Board.create({title, content, imgUrl, author});
         res.json({"result": createBoard});
     }
     catch(err){
@@ -20,7 +20,8 @@ const writeOne = async (req, res, next) => {
 const readAll = async (req, res, next) => {
     try {
         const getBoard = await model.Board.findAll({
-            attributes: ['id', 'title', 'createdAt', 'author']
+            attributes: ['id', 'title', 'createdAt', 'author'],
+            include: [{model: model.User, attributes: ['name']} ]
         });
         res.json({"result": getBoard});
     }
@@ -36,11 +37,12 @@ const readOne = async (req, res, next) => {
         console.log(id)
         const getBoard = await model.Board.findOne({
             where: {id},
+            include: [{model: model.User, attributes: ['name']} ]
         })
         res.json({"result": getBoard});
     }
     catch (err) {
-
+        console.log(err)
     }
 }
 

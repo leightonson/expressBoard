@@ -97,8 +97,13 @@ const authCheck = async (req, res, next) => {
         const findUser = await model.User.findOne({
             where : {username}
         })
-        req.findUserId = findUser.id;
-        next();
+        if(findUser) {
+            req.findUserId = findUser.id;
+            next();
+        }
+        else {
+            res.json({result: '해당 아이디가 없습니다.'})
+        }
     }
 }
 

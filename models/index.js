@@ -15,7 +15,8 @@ const User = require("./User")(sequelize, Sequelize);
 db.Board = Board;
 db.User = User;
 
-User.hasMany(Board, {foreignKey: 'author',});
+User.hasMany(Board, {foreignKey: 'author', sourceKey: 'id'});
+Board.belongsTo(User, {foreignKey: 'author', targetKey: 'id'})
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
